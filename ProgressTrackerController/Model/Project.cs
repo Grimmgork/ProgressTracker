@@ -24,6 +24,7 @@ namespace ProgressTracker.Model
         private string lockfilePath; //path to lockfile
         private FileStream lockFileStream;
 
+
         public string FileName
         {
             get
@@ -39,7 +40,24 @@ namespace ProgressTracker.Model
                 return lockFileStream != null;
             }
         }
+
+        public bool HasFileChanges
+        {
+            get
+            {
+                return lastRefresh != File.GetLastWriteTime(filePath) || Work == null;
+            }
+        }
+
+        public bool IsLocked
+        {
+            get
+            {
+                return File.Exists(lockfilePath) && !HasWriteLock;
+            }
+        }
         
+
         string _status;
         public string Status
         {
@@ -122,12 +140,12 @@ namespace ProgressTracker.Model
             if (HasWriteLock)
                 return true;
 
-            if (IsLocked())
+            if (IsLocked)
                 return false;
 
             try
             {
-                lockFileStream = new FileStream(lockfilePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                lockFileStream = new FileStream(lockfilePath, FileMode.Create, FileAccess.Write, FileShare.None, 4032, FileOptions.DeleteOnClose);
             }
             catch
             {
@@ -138,14 +156,6 @@ namespace ProgressTracker.Model
             return true;
         }
 
-        private bool IsLocked()
-        {
-            if (File.Exists(lockfilePath) && !HasWriteLock)
-                return true;
-
-            return false;
-        }
-
         public void FreeWriteLock()
         {
             if (!HasWriteLock)
@@ -154,14 +164,8 @@ namespace ProgressTracker.Model
             lockFileStream.Close();
             lockFileStream = null;
             OnPropertyChanged("HasWriteLock");
-            File.Delete(lockfilePath);
         }
 
-
-        public bool FileChanged()
-        {
-            return lastRefresh != File.GetLastWriteTime(filePath) || Work == null;
-        }
 
         public bool TrySave()
         {
@@ -204,7 +208,7 @@ namespace ProgressTracker.Model
                 return;
             }
 
-            if (IsLocked())
+            if (IsLocked)
             {
                 Status = "File locked! (Somebody is edititng it)";
                 Work = null;

@@ -1,7 +1,6 @@
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\bin\Debug\net472\ProgressTracker.exe.config
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\bin\Debug\net472\ProgressTracker.exe
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\bin\Debug\net472\ProgressTracker.pdb
-C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\ProgressTracker.csprojAssemblyReference.cache
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\Controls\EditWork.g.cs
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\Controls\ReportProgress.g.cs
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\OverlayHolder.g.cs

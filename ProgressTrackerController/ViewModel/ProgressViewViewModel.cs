@@ -85,7 +85,7 @@ namespace ProgressTracker.ViewModel
 
         private void Refresh()
         {
-            if (Proj.FileChanged())
+            if (Proj.HasFileChanges)
             if(!buisy)
                refresh = true;
         }
