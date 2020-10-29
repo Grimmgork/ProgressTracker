@@ -63,7 +63,7 @@ namespace ProgressTracker
 
         private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            (DataContext as ProgressEditViewModel).EditWork((sender as ListBoxItem).DataContext as LinearWork);
+            (DataContext as ProgressEditViewModel).EditWork( ((sender as TreeViewItem).DataContext as WorkNode).Work );
         }
 
         private void OverlayHolder_LockAreaClick(object sender, EventArgs e)

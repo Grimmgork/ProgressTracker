@@ -37,5 +37,5 @@
 
         <Button HorizontalAlignment="Stretch" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding CMDApply}" VerticalAlignment="Bottom" Content="Apply" Cursor="Hand" Height="32" Margin="0,0,0,8"/>
     </Grid>
-   
+
 </UserControl>

@@ -13,9 +13,7 @@ namespace ProgressTracker.Model
         {
             get
             {
-                if(Value >= Total)
-                    return true;
-                return false;
+                return Value >= Total;
             }
         }
 

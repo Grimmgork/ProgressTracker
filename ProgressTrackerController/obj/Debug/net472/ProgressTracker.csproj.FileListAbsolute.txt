@@ -24,3 +24,4 @@ C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\o
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\ProgressTracker.AssemblyInfo.cs
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\ProgressTracker.exe
 C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\ProgressTracker.pdb
+C:\Users\Eric\source\repos\ProgressTrackerController\ProgressTrackerController\obj\Debug\net472\ProgressTracker.csprojAssemblyReference.cache

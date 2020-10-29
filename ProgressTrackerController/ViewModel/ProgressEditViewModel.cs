@@ -42,6 +42,20 @@ namespace ProgressTracker.ViewModel
             }
         }
 
+        WorkNode _root;
+        public WorkNode Root
+        {
+            get
+            {
+                return _root;
+            }
+            set
+            {
+                _root = value;
+                OnPropertyChanged("Root");
+            }
+        }
+
         Project _proj;
         public Project Proj
         {
@@ -68,6 +82,19 @@ namespace ProgressTracker.ViewModel
             CMDOpenProject = new OpenProjectCommand(this);
             CMDSave = new SaveCommand(this);
             CMDReload = new ReloadCommand(this);
+
+            Root = new WorkNode();
+            WorkNode w = new WorkNode();
+            w.AddChild(new WorkNode());
+            w.AddChild(new WorkNode());
+            w.AddChild(new WorkNode());
+            w.AddChild(new WorkNode());
+
+            Root.AddChild(w);
+            Root.AddChild(new WorkNode());
+            Root.AddChild(new WorkNode());
+            Root.AddChild(new WorkNode());
+            Root.AddChild(new WorkNode());
         }
 
 

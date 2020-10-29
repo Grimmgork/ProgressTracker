@@ -29,7 +29,7 @@ namespace ProgressTracker
             if (path == string.Empty)
             {
                 Window v = new ProgressEdit();
-                v.DataContext = new ProgressEditViewModel();
+                v.DataContext = new ProgressEditViewModel(); 
                 v.Show();
             }
             else

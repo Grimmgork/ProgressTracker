@@ -9,9 +9,9 @@ namespace ProgressTracker.Model
 {
     public class WorkNode : INotifyPropertyChanged
     {
-        WorkNode parent;
+        internal WorkNode parent;
 
-        public List<WorkNode> SubWork = new List<WorkNode>();
+        public List<WorkNode> SubWork { get; set; }
 
         public bool Completed
         {
@@ -69,13 +69,14 @@ namespace ProgressTracker.Model
         }
 
 
-        public WorkNode(WorkNode parent)
+        public WorkNode()
         {
-            this.parent = parent;
+            SubWork = new List<WorkNode>();
         }
 
         public void AddChild(WorkNode n)
         {
+            n.parent = this;
             SubWork.Add(n);
             OnPropertyChanged("SubWork");
             UpdatePercentage();
@@ -83,21 +84,10 @@ namespace ProgressTracker.Model
 
         public void RemoveChild(WorkNode n)
         {
+            n.parent = null;
             SubWork.Remove(n);
             OnPropertyChanged("SubWork");
             UpdatePercentage();
-        }
-
-
-        private void UpdatePercentage()
-        {
-            float value = 0;
-            foreach(WorkNode w in SubWork)
-            {
-                value += w.Percentage * w.Weight*100;    
-            }
-
-            Percentage = (int)value*100;
         }
 
 
@@ -117,6 +107,17 @@ namespace ProgressTracker.Model
             }
 
             UpdatePercentage();
+        }
+
+        private void UpdatePercentage()
+        {
+            float value = 0;
+            foreach (WorkNode w in SubWork)
+            {
+                value += w.Percentage * w.Weight * 100;
+            }
+
+            Percentage = (int)value * 100;
         }
 
         #region INotifyPropertyChanged Members  

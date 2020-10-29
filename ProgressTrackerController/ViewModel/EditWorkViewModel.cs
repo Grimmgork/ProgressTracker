@@ -43,8 +43,12 @@ namespace ProgressTracker.ViewModel
             }
         }
 
+        
+
         public EditWorkViewModel(LinearWork work)
         {
+            
+
             CMDApply = new ApplyCommand(this);
 
             Work = work;
