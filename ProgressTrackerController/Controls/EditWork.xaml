@@ -28,8 +28,8 @@
 
             <TextBlock Text="Name" VerticalAlignment="Center" Foreground="{StaticResource TextNormalColor}"/>
             <TextBox Text="{Binding Name}" Grid.Column="1" Foreground="{StaticResource TextLightColor}" Cursor="IBeam"/>
-            <local:NumericInput Value="{Binding Total, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Max="999999" Min="0"/>
-            <local:NumericInput Value="{Binding CurrentValue, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" Max="999999" Min="0"/>
+            <local:NumericInput Value="{Binding Total, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" Max="99999999" Min="0"/>
+            <local:NumericInput Value="{Binding CurrentValue, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" Max="99999999" Min="0"/>
 
             <TextBlock Text="Total steps" VerticalAlignment="Center" Grid.Row="2" Foreground="{StaticResource TextNormalColor}"/>
             <TextBlock Text="Completed steps" VerticalAlignment="Center" Grid.Row="4" Foreground="{StaticResource TextNormalColor}"/>
