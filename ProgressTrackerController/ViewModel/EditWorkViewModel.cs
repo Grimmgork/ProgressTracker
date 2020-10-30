@@ -14,10 +14,10 @@ namespace ProgressTracker.ViewModel
 
         public string Name { get; set; }
 
-        public float Total { get; set; }
+        public int Total { get; set; }
 
-        float _value;
-        public float CurrentValue
+        int _value;
+        public int CurrentValue
         {
             get
             {

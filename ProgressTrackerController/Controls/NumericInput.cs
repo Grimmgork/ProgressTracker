@@ -15,20 +15,12 @@ namespace ProgressTracker.Controls
 {
     public class NumericInput : Control
     {
-        public static readonly DependencyProperty OnlyFullNumbersProperty =
-        DependencyProperty.Register("OnlyFullNumbers", typeof(bool), typeof(NumericInput), new UIPropertyMetadata(null));
-        public bool OnlyFullNumbers
-        {
-            get { return (bool)GetValue(OnlyFullNumbersProperty); }
-            set { SetValue(OnlyFullNumbersProperty, value); }
-        }
-
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(float), typeof(NumericInput), new UIPropertyMetadata(null));
-        public float Value
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(int), typeof(NumericInput), new UIPropertyMetadata(null));
+        public int Value
         {
             get
             {
-                return (float)GetValue(ValueProperty);
+                return (int)GetValue(ValueProperty);
             }
             set
             {
@@ -38,39 +30,33 @@ namespace ProgressTracker.Controls
                 if (value > Max)
                     value = Max;
 
-                value = (float)(Math.Truncate(value * Math.Pow(10, NumberOfDecimals)) / Math.Pow(10, NumberOfDecimals));
+                if (Value == value)
+                    return;
 
                 SetValue(ValueProperty, value);
                 SyncVisuals();
             }
         }
 
-        float _min = 0;
-        public float Min
+        int _min = 0;
+        public int Min
         {
             get { return _min; }
             set { _min = value; Value = Value; }
         }
 
-        float _max = 9999;
-        public float Max
+        int _max = 9999;
+        public int Max
         {
             get { return _max; }
             set { _max = value; Value = Value; }
         }
 
-        float _incrementValue = 1;
-        public float IncrementValue
+        int _incrementValue = 1;
+        public int IncrementValue
         {
             get { return _incrementValue; }
             set { _incrementValue = value; }
-        }
-
-        int _numberOfDecimals = 0;
-        public int NumberOfDecimals
-        {
-            get { return _numberOfDecimals; }
-            set { _numberOfDecimals = value; Value = Value; }
         }
 
         TextBox tb;
@@ -132,8 +118,7 @@ namespace ProgressTracker.Controls
                 if (Clipboard.ContainsText())
                 {
                     e.Handled = true;
-                    if (TryParseText(Clipboard.GetText()))
-                        Keyboard.ClearFocus();
+                    TryParseText(Clipboard.GetText());
                 }
             }
         }
@@ -149,19 +134,14 @@ namespace ProgressTracker.Controls
 
         private void MainTextBox_OnLooseKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            TryParseText(tb.Text);
+            if(!TryParseText(tb.Text))
+                SyncVisuals();
         }
 
         private void MainTextBox_OnGetKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
 
         }
-
-        private void MouseClickOutside(object sender, MouseButtonEventArgs e)
-        {
-            Keyboard.ClearFocus();
-        }
-
 
         public void Increment()
         {
@@ -178,18 +158,28 @@ namespace ProgressTracker.Controls
         {
             if (IsValidText(text))
             {
-                tb.Text = tb.Text.Replace('.', ',');
+                text = tb.Text.Replace('.', ',');
 
-                if (tb.Text == string.Empty || tb.Text == "-" || tb.Text == "-0")
+                if (text == string.Empty || text == "-" || text == "-0")
                     Value = 0;
                 else
-                    Value = float.Parse(tb.Text);
-
-                return true;
+                    try
+                    {
+                        Value = int.Parse(text);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
             }
 
-            Value = Value;
             return false;
+        }
+
+        public string GetValueAsText()
+        {
+            return "" + Value;
         }
 
         private bool IsValidText(string text)
@@ -229,10 +219,12 @@ namespace ProgressTracker.Controls
 
         public void SyncVisuals()
         {
+            Keyboard.ClearFocus();
+
             if (!initialized)
                 return;
 
-            tb.Text = Value.ToString().Replace(',', '.');
+            tb.Text = GetValueAsText();//.Replace(',', '.');
             tb.CaretIndex = tb.Text.Length;
 
             if (Value <= Min)
